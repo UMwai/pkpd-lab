@@ -1,0 +1,272 @@
+{
+  "$defs": {
+    "Dose": {
+      "additionalProperties": false,
+      "properties": {
+        "time_h": {
+          "default": 0.0,
+          "minimum": 0,
+          "title": "Time H",
+          "type": "number"
+        },
+        "amount_mg": {
+          "default": 100.0,
+          "exclusiveMinimum": 0,
+          "title": "Amount Mg",
+          "type": "number"
+        },
+        "route": {
+          "default": "oral",
+          "enum": [
+            "oral",
+            "iv_bolus",
+            "iv_infusion"
+          ],
+          "title": "Route",
+          "type": "string"
+        },
+        "duration_h": {
+          "default": 0.0,
+          "minimum": 0,
+          "title": "Duration H",
+          "type": "number"
+        }
+      },
+      "title": "Dose",
+      "type": "object"
+    },
+    "PDParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "model": {
+          "default": "emax",
+          "enum": [
+            "emax",
+            "linear",
+            "indirect_inhibition",
+            "indirect_stimulation"
+          ],
+          "title": "Model",
+          "type": "string"
+        },
+        "driver": {
+          "default": "effect_site",
+          "enum": [
+            "plasma",
+            "effect_site"
+          ],
+          "title": "Driver",
+          "type": "string"
+        },
+        "baseline": {
+          "default": 0.0,
+          "minimum": 0,
+          "title": "Baseline",
+          "type": "number"
+        },
+        "maximum_effect": {
+          "default": 100.0,
+          "title": "Maximum Effect",
+          "type": "number"
+        },
+        "ec50_mg_l": {
+          "default": 2.0,
+          "exclusiveMinimum": 0,
+          "title": "Ec50 Mg L",
+          "type": "number"
+        },
+        "hill": {
+          "default": 1.0,
+          "exclusiveMinimum": 0,
+          "title": "Hill",
+          "type": "number"
+        },
+        "slope_per_mg_l": {
+          "default": 1.0,
+          "title": "Slope Per Mg L",
+          "type": "number"
+        },
+        "effect_equilibration_h": {
+          "default": 0.5,
+          "exclusiveMinimum": 0,
+          "title": "Effect Equilibration H",
+          "type": "number"
+        },
+        "turnover_rate_h": {
+          "default": 0.2,
+          "exclusiveMinimum": 0,
+          "title": "Turnover Rate H",
+          "type": "number"
+        }
+      },
+      "title": "PDParameters",
+      "type": "object"
+    },
+    "PKParameters": {
+      "additionalProperties": false,
+      "description": "Mammillary model: central compartment connected to 0, 1, or 2 peripherals.",
+      "properties": {
+        "clearance_l_h": {
+          "default": 4.0,
+          "minimum": 0,
+          "title": "Clearance L H",
+          "type": "number"
+        },
+        "central_volume_l": {
+          "default": 20.0,
+          "exclusiveMinimum": 0,
+          "title": "Central Volume L",
+          "type": "number"
+        },
+        "peripheral_volumes_l": {
+          "default": [
+            30.0
+          ],
+          "items": {
+            "exclusiveMinimum": 0,
+            "type": "number"
+          },
+          "title": "Peripheral Volumes L",
+          "type": "array"
+        },
+        "intercompartmental_clearances_l_h": {
+          "default": [
+            6.0
+          ],
+          "items": {
+            "minimum": 0,
+            "type": "number"
+          },
+          "title": "Intercompartmental Clearances L H",
+          "type": "array"
+        },
+        "absorption_rate_h": {
+          "default": 1.2,
+          "exclusiveMinimum": 0,
+          "title": "Absorption Rate H",
+          "type": "number"
+        },
+        "bioavailability": {
+          "default": 0.8,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Bioavailability",
+          "type": "number"
+        },
+        "absorption_lag_h": {
+          "default": 0.0,
+          "minimum": 0,
+          "title": "Absorption Lag H",
+          "type": "number"
+        },
+        "vmax_mg_h": {
+          "default": 0.0,
+          "minimum": 0,
+          "title": "Vmax Mg H",
+          "type": "number"
+        },
+        "km_mg_l": {
+          "default": 2.0,
+          "exclusiveMinimum": 0,
+          "title": "Km Mg L",
+          "type": "number"
+        }
+      },
+      "title": "PKParameters",
+      "type": "object"
+    },
+    "Provenance": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "default": "synthetic",
+          "enum": [
+            "synthetic",
+            "literature",
+            "user_supplied"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "description": {
+          "default": "Illustrative parameters; not calibrated to a real drug or population.",
+          "title": "Description",
+          "type": "string"
+        },
+        "references": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "References",
+          "type": "array"
+        },
+        "population": {
+          "default": "Unspecified synthetic subject",
+          "title": "Population",
+          "type": "string"
+        },
+        "formulation": {
+          "default": "Idealized first-order absorption",
+          "title": "Formulation",
+          "type": "string"
+        }
+      },
+      "title": "Provenance",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "name": {
+      "default": "Synthetic two-compartment oral scenario",
+      "title": "Name",
+      "type": "string"
+    },
+    "pk": {
+      "$ref": "#/$defs/PKParameters"
+    },
+    "pd": {
+      "$ref": "#/$defs/PDParameters"
+    },
+    "doses": {
+      "default": [
+        {
+          "time_h": 0.0,
+          "amount_mg": 100.0,
+          "route": "oral",
+          "duration_h": 0.0
+        }
+      ],
+      "items": {
+        "$ref": "#/$defs/Dose"
+      },
+      "title": "Doses",
+      "type": "array"
+    },
+    "end_h": {
+      "default": 48.0,
+      "exclusiveMinimum": 0,
+      "title": "End H",
+      "type": "number"
+    },
+    "samples": {
+      "default": 481,
+      "maximum": 20001,
+      "minimum": 2,
+      "title": "Samples",
+      "type": "integer"
+    },
+    "provenance": {
+      "$ref": "#/$defs/Provenance"
+    }
+  },
+  "title": "Scenario",
+  "type": "object"
+}
