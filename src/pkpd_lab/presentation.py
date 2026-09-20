@@ -66,9 +66,16 @@ def chart(data, columns, y_label, *, log=False, breaks=(), dose_times=(), height
                 x=x,
                 y=y,
                 name=name,
-                mode="lines",
+                mode="lines+markers",
                 connectgaps=False,
                 line={"color": PALETTE[i % len(PALETTE)], "width": 2.5},
+                marker={
+                    "size": [
+                        5 if time in breaks and value is not None else 0
+                        for time, value in zip(x, y, strict=True)
+                    ],
+                    "color": PALETTE[i % len(PALETTE)],
+                },
                 hovertemplate="%{y:.3f}<extra>%{fullData.name}</extra>",
             )
         )
