@@ -11,6 +11,13 @@ All volumes are positive, CL and Q are nonnegative, absorption and PD rate
 constants are positive, and F is in [0,1]. Nonfinite values, unknown fields,
 inconsistent volume/Q tuples, and unsupported routes are rejected.
 
+**Version 1 naming caveat:** `absorption_rate_h`, `effect_equilibration_h`, and
+`turnover_rate_h` all contain rate constants in **1/h**, despite their `_h`
+suffix. They are not durations or half-lives. `time_h`, `duration_h`, `end_h`, and
+`absorption_lag_h` are durations/times in hours. The planned version 2 schema will
+use explicit `_per_h` names with a version 1 migration; v0.1 keeps its existing
+field names so saved scenarios remain loadable.
+
 The model is a mammillary system: each peripheral compartment exchanges only
 with the central compartment. Three PK compartments means central plus two
 peripherals, not three organs and not depot + central + peripheral.
@@ -94,15 +101,19 @@ stimulation of response loss, tolerance, and disease progression are not include
   horizon are solver boundaries. Simultaneous boluses sum; records need not be sorted.
 - SciPy LSODA integrates each continuous segment with `rtol=1e-8`, `atol=1e-10`.
   Solver failure stops the experiment; there is no fallback to synthetic output.
+  The same absolute tolerance applies to amount, AUC, effect-site, and response
+  states despite their different units. Accuracy at untested scales is not established.
 - Output is the sorted union of the requested grid, event boundaries, zero, and
-  the horizon. Explicit observation times must be finite, unique, and increasing.
+  the horizon. Explicit observation times must be finite, unique, increasing,
+  nonempty, and within the closed interval `[0, end_h]`.
 - Exact bolus observations are post-dose. A dose at the horizon contributes to
   the final concentration but contributes no additional finite-horizon AUC.
 - A dose after the horizon is rejected. An infusion or absorption lag may extend
   beyond it; only delivered/released drug is accounted for within the horizon.
-- Cmax/Tmax use the output samples and can miss between-grid extrema. Plot lines
-  connect samples, including across bolus jumps; use the event ledger and numerical
-  output when interpreting instantaneous discontinuities.
+- Cmax/Tmax use the output samples and can miss between-grid extrema. The current
+  workbench breaks concentration lines at IV bolus times instead of drawing a
+  ramp across the jump. These visual gaps do not change simulated values or AUC;
+  they do not supply a separate pre-dose observation. See the exact event ledger.
 
 ## Comparisons and variability
 
@@ -116,8 +127,12 @@ denotes **variance**. Typical values are medians, not arithmetic means. Other
 parameters are fixed. The RNG is seeded, and the outputs are pointwise 5th,
 50th, and 95th percentiles. No covariance, residual variability, or estimation
 uncertainty is implied. CL=0 remains zero under multiplicative variability.
+Quantiles use NumPy's default linear interpolation. Estimated band edges have
+Monte Carlo sampling error, especially with small subject counts; a fixed seed
+makes the draws reproducible, not precise. Increase subject count and compare
+seeds when investigating band stability.
 
-Sensitivity uses three validated scenarios at 0.8, 1.0, and 1.2 times one
+By default, sensitivity uses three input-validated scenarios at 0.8, 1.0, and 1.2 times one
 parameter. This does not measure interactions or constitute global sensitivity.
 Invalid perturbations (for example F>1) are rejected rather than silently clipped.
 

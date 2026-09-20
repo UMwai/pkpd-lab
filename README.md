@@ -38,7 +38,7 @@ covered by CI; the default development version is 3.12.
 | Turnover response | Inhibition or stimulation of response production with first-order loss |
 | Experiments | Structural comparisons, one-at-a-time sensitivity, seeded virtual CL/Vc variability |
 | Outputs | Concentrations, amounts, effects, sampled Cmax/Tmax, integrated finite-horizon AUC, mass balance |
-| Reproducibility | Validated versioned scenarios, parameter provenance, CSV/JSON export, CLI receipts, locked dependencies |
+| Reproducibility | Input-validated versioned scenarios, parameter provenance, CSV/JSON export, CLI receipts, locked dependencies |
 
 Compartment counts exclude the absorption depot and virtual effect site.
 Compartments represent abstract distribution spaces, not named organs.
@@ -78,7 +78,10 @@ uv run pkpd examples/saturable_indirect.json --output outputs/indirect.csv
 ```
 
 Each command writes a trajectory CSV and a companion JSON containing the resolved
-scenario, its SHA-256, dependency versions, solver tolerances, and summary metrics.
+scenario, its re-serialized SHA-256, the pkpd-lab/NumPy/SciPy/Pydantic versions,
+solver tolerances, and summary metrics. The hash is not of the original input
+file. Python/platform/Git metadata and pandas versions are not yet recorded;
+see the [reproducibility guide](docs/USER_GUIDE.md#save-import-and-reproduce).
 The UI can import the standalone scenario JSON. The companion receipt wraps it
 under `scenario`; extract that field before importing a CLI receipt.
 
@@ -86,6 +89,8 @@ under `scenario`; extract that field before importing a CLI receipt.
 
 - Time: **h**. Amount: **mg**. Volume: **L**. Concentration: **mg/L**.
   Clearance/distribution clearance: **L/h**. Rate constants: **1/h**.
+  Version 1 fields `absorption_rate_h`, `effect_equilibration_h`, and
+  `turnover_rate_h` are in **1/h**, despite the abbreviated suffix.
 - Drug-free initial conditions at time zero; turnover response starts at baseline.
 - Integration restarts at every dosing/infusion boundary. A value at a bolus time
   is **post-dose**; this matters when comparing with experimental observations.
@@ -98,8 +103,13 @@ under `scenario`; extract that field before importing a CLI receipt.
   and validation context. A source citation alone does not validate a scenario.
 
 See [equations and numerical conventions](docs/MODELS.md),
+[the workbench and reproducibility guide](docs/USER_GUIDE.md),
 [validation evidence and limits](docs/VALIDATION.md), and
 [the extension roadmap](docs/ROADMAP.md).
+
+The [Fable 5.1 review and disposition](docs/reviews/2026-09-20-fable-5.1.md)
+records the independent static review, confirmed documentation gaps, and remaining
+verification work. Model review is not empirical validation.
 
 ## Develop
 
