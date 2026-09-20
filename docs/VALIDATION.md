@@ -47,6 +47,37 @@ Run `uv run pytest` for the current result; CI runs the suite on Python
 Locked library versions are in `uv.lock`; no unsupported numerical equivalence
 claim is made against NONMEM, mrgsolve, Monolix, or Torsten.
 
+## Lab builder v0.2
+
+The 2026-09-20 lab-builder implementation passed **102 tests**, the required
+lint/format checks, and wheel/source-distribution builds. Both checked-in lab
+examples ran through the CLI; the clearance example also generated a model
+manifest. This extends the original 65-test suite with the following checks:
+
+| Check | Independent reference or failure being tested |
+| --- | --- |
+| Kinetic orders 0–3 | Analytical single-compartment elimination solutions |
+| Zero-order transfer | Exact depletion, conservation, and pulse refill |
+| Zero-order elimination with absorption | Analytical central trajectory before/after depletion, including continuous inflow |
+| PK starting templates | Trajectories compared with the existing 1-, 2-, and 3-compartment engine |
+| Derivative orders 1–3 | Polynomial solutions and initial derivative values |
+| Higher-order coupling | Harmonic oscillator and dependency-ordered algebraic outputs |
+| Model generation | Unit mismatches, unsafe expressions, unresolved symbols, and algebraic cycles rejected |
+| Isolation and provenance | Independent subjects, configuration hashes, and stale-run export rejection |
+| Local labs and CLI | Save/reopen, import size/ID checks, run archives, and output overwrite refusal |
+| UI lifecycle | Create/add/clone, generate/run, local save/reopen, and stale-result invalidation |
+
+Separate Chromium checks edited a compartment volume in the actual grid, applied
+the change, generated and ran both subjects, and verified the downloaded ZIP's
+lab JSON and two subject CSVs. Export/import into a fresh browser session preserved
+the edited lab exactly. Desktop and 390-pixel layouts rendered without page errors
+or horizontal page overflow. The checked-in lab screenshot reflects this synthetic
+editing exercise. These checks do not establish full accessibility compliance.
+
+The lab guide records solver tolerances, depletion/refill conventions, resource
+limits, and unsupported model classes. Reference solutions cover selected
+synthetic systems; they do not establish accuracy for every user-written model.
+
 ## Coverage limits and pending checks
 
 - Indirect-response analytical tests use a plasma driver; indirect response with

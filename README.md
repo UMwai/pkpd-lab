@@ -1,15 +1,34 @@
 # PK/PD Lab
 
-**Follow the dose.** An interactive research workbench and Python library for
-exploring how administered drugs distribute, clear, and produce effects.
+**Create a lab. Build bodies. Generate the model.** An interactive research
+workbench and Python library for drug disposition and custom dynamic systems.
 
-Build a scenario, compare 1-, 2-, and 3-compartment models, inspect concentration
-and response curves, then export the complete experiment as JSON and CSV.
+Create multiple subjects, define their compartments and kinetic processes, add
+algebraic or first- through third-order differential equations, then generate,
+inspect, and run the assembled model. Save labs locally and compare body responses.
 
 All bundled parameters are **synthetic**. This version is a general simulator,
 not a validated drug model or clinical dosing tool.
 
-![PK/PD Lab workbench showing repeated oral dosing and delayed effects](docs/workbench.png)
+The original 1-, 2-, and 3-compartment PK/PD simulator is still available in the
+sidebar, including its infusion, absorption-lag, and pharmacodynamic controls.
+
+## Lab builder in v0.2
+
+- **Lab → subjects → compartments:** create, duplicate, edit, save, and reopen.
+- **Kinetic orders 0–3:** physical transfer/elimination rates proportional to Cⁿ,
+  with mass accounting and availability limits at zero-order depletion.
+- **Derivative orders 0–3:** explicit algebraic expressions and ODEs with initial
+  values, unit checking, and an arithmetic interpreter that does not execute Python.
+- **Generate → inspect → run:** assembled equations, independent subject curves,
+  stale-result protection, and ZIP exports with per-body CSVs and metadata.
+
+See the [lab builder guide](docs/LAB_BUILDER.md) for equations, units, storage,
+examples, and supported boundaries. Kinetic order and derivative order are
+different concepts. Labs currently use pulse dosing and fixed power-law physical
+rates; the original simulator retains its distinct predefined PK/PD capabilities.
+
+![Lab builder with multiple bodies and editable compartment networks](docs/lab-builder.png)
 
 ## Run locally
 
@@ -26,7 +45,9 @@ Open **http://localhost:8501**. The app binds to localhost, makes no external
 inference calls, and requires no API keys or cloud services. Python 3.11–3.13 is
 covered by CI; the default development version is 3.12.
 
-## Included in v0.1
+## Original PK/PD simulator
+
+Select **PK/PD simulator** in the sidebar for this workflow:
 
 | Area | Implemented |
 | --- | --- |
@@ -85,7 +106,7 @@ see the [reproducibility guide](docs/USER_GUIDE.md#save-import-and-reproduce).
 The UI can import the standalone scenario JSON. The companion receipt wraps it
 under `scenario`; extract that field before importing a CLI receipt.
 
-## Scientific contract
+## Original simulator scientific contract
 
 - Time: **h**. Amount: **mg**. Volume: **L**. Concentration: **mg/L**.
   Clearance/distribution clearance: **L/h**. Rate constants: **1/h**.
@@ -104,6 +125,7 @@ under `scenario`; extract that field before importing a CLI receipt.
 
 See [equations and numerical conventions](docs/MODELS.md),
 [the workbench and reproducibility guide](docs/USER_GUIDE.md),
+[the lab builder contract](docs/LAB_BUILDER.md),
 [validation evidence and limits](docs/VALIDATION.md), and
 [the extension roadmap](docs/ROADMAP.md).
 

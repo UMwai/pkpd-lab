@@ -1,5 +1,9 @@
 # Models and numerical conventions
 
+This document describes the original **PK/PD simulator**. The separate v0.2 lab
+builder's generated equations, initial states, kinetic orders, and depletion
+conventions are described in [LAB_BUILDER.md](LAB_BUILDER.md).
+
 ## State, units, and interpretation
 
 The PK state contains an absorption depot `Ag`, central amount `Ac`, and zero to

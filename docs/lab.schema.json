@@ -1,0 +1,318 @@
+{
+  "$defs": {
+    "Compartment": {
+      "additionalProperties": false,
+      "properties": {
+        "symbol": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_]{0,39}$",
+          "title": "Symbol",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "volume_l": {
+          "default": 20,
+          "exclusiveMinimum": 0,
+          "title": "Volume L",
+          "type": "number"
+        },
+        "initial_mg": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Initial Mg",
+          "type": "number"
+        }
+      },
+      "required": [
+        "symbol",
+        "name"
+      ],
+      "title": "Compartment",
+      "type": "object"
+    },
+    "Equation": {
+      "additionalProperties": false,
+      "properties": {
+        "symbol": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_]{0,39}$",
+          "title": "Symbol",
+          "type": "string"
+        },
+        "derivative_order": {
+          "default": 1,
+          "enum": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "title": "Derivative Order",
+          "type": "integer"
+        },
+        "rhs": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Rhs",
+          "type": "string"
+        },
+        "unit": {
+          "default": "response",
+          "title": "Unit",
+          "type": "string"
+        },
+        "initial": {
+          "default": [
+            0.0
+          ],
+          "items": {
+            "type": "number"
+          },
+          "title": "Initial",
+          "type": "array"
+        }
+      },
+      "required": [
+        "symbol",
+        "rhs"
+      ],
+      "title": "Equation",
+      "type": "object"
+    },
+    "KineticProcess": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "source": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_]{0,39}$",
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z][A-Za-z0-9_]{0,39}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target"
+        },
+        "kinetic_order": {
+          "default": 1,
+          "enum": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "title": "Kinetic Order",
+          "type": "integer"
+        },
+        "coefficient": {
+          "default": 4,
+          "minimum": 0,
+          "title": "Coefficient",
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "source"
+      ],
+      "title": "KineticProcess",
+      "type": "object"
+    },
+    "LabDose": {
+      "additionalProperties": false,
+      "properties": {
+        "time_h": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Time H",
+          "type": "number"
+        },
+        "target": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_]{0,39}$",
+          "title": "Target",
+          "type": "string"
+        },
+        "amount_mg": {
+          "default": 100,
+          "exclusiveMinimum": 0,
+          "title": "Amount Mg",
+          "type": "number"
+        }
+      },
+      "required": [
+        "target"
+      ],
+      "title": "LabDose",
+      "type": "object"
+    },
+    "Parameter": {
+      "additionalProperties": false,
+      "properties": {
+        "symbol": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_]{0,39}$",
+          "title": "Symbol",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        },
+        "unit": {
+          "default": "1",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "symbol",
+        "value"
+      ],
+      "title": "Parameter",
+      "type": "object"
+    },
+    "Subject": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-f0-9]{32}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "default": "Body 1",
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "notes": {
+          "default": "Synthetic research subject",
+          "maxLength": 2000,
+          "title": "Notes",
+          "type": "string"
+        },
+        "compartments": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Compartment"
+          },
+          "maxItems": 12,
+          "title": "Compartments",
+          "type": "array"
+        },
+        "processes": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/KineticProcess"
+          },
+          "maxItems": 40,
+          "title": "Processes",
+          "type": "array"
+        },
+        "parameters": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Parameter"
+          },
+          "maxItems": 30,
+          "title": "Parameters",
+          "type": "array"
+        },
+        "equations": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Equation"
+          },
+          "maxItems": 20,
+          "title": "Equations",
+          "type": "array"
+        },
+        "doses": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/LabDose"
+          },
+          "maxItems": 500,
+          "title": "Doses",
+          "type": "array"
+        }
+      },
+      "title": "Subject",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "kind": {
+      "const": "lab",
+      "default": "lab",
+      "title": "Kind",
+      "type": "string"
+    },
+    "lab_schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Lab Schema Version",
+      "type": "integer"
+    },
+    "id": {
+      "pattern": "^[a-f0-9]{32}$",
+      "title": "Id",
+      "type": "string"
+    },
+    "name": {
+      "default": "Untitled lab",
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "description": {
+      "default": "Synthetic research experiment",
+      "maxLength": 4000,
+      "title": "Description",
+      "type": "string"
+    },
+    "subjects": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/Subject"
+      },
+      "maxItems": 12,
+      "title": "Subjects",
+      "type": "array"
+    },
+    "end_h": {
+      "default": 48,
+      "exclusiveMinimum": 0,
+      "maximum": 10000,
+      "title": "End H",
+      "type": "number"
+    },
+    "samples": {
+      "default": 481,
+      "maximum": 10001,
+      "minimum": 2,
+      "title": "Samples",
+      "type": "integer"
+    }
+  },
+  "title": "Lab",
+  "type": "object"
+}

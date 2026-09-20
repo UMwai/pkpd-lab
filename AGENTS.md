@@ -14,3 +14,9 @@ context before adding a named drug. Do not add patient records to this repositor
 
 Required checks: `uv run ruff check .`, `uv run ruff format --check .`, and
 `uv run pytest`. Keep `uv.lock` committed; CI uses `uv sync --locked`.
+
+For lab-builder changes, also read docs/LAB_BUILDER.md. Kinetic order and
+derivative order are different concepts. Never execute user expressions as Python;
+preserve the arithmetic AST allowlist, dimensional validation, subject isolation,
+and explicit initial conditions. Physical compartment mass is separate from
+custom response variables. Lab drafts are local data, never committed to Git.
