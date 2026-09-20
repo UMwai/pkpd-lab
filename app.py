@@ -9,6 +9,7 @@ from pydantic import ValidationError
 
 from pkpd_lab import Dose, PDParameters, PKParameters, Scenario, repeated_doses, simulate
 from pkpd_lab.experiments import population, sensitivity
+from pkpd_lab.lab_ui import render_lab
 from pkpd_lab.presentation import chart, model_diagram
 
 st.set_page_config(page_title="PK/PD Lab · UMWai", page_icon="◒", layout="wide")
@@ -16,6 +17,11 @@ st.markdown(
     "<style>" + (Path(__file__).parent / "assets/workbench.css").read_text() + "</style>",
     unsafe_allow_html=True,
 )
+with st.sidebar:
+    workspace = st.radio("Workspace", ["Lab builder", "PK/PD simulator"])
+if workspace == "Lab builder":
+    render_lab()
+    st.stop()
 st.markdown('<div class="page-kicker">RESEARCH WORKBENCH</div>', unsafe_allow_html=True)
 header, status = st.columns([4, 1], vertical_alignment="center")
 with header:
@@ -26,7 +32,7 @@ with header:
         unsafe_allow_html=True,
     )
 with status:
-    st.markdown('<span class="status-tag">RESEARCH ONLY · v0.1</span>', unsafe_allow_html=True)
+    st.markdown('<span class="status-tag">RESEARCH ONLY · v0.2</span>', unsafe_allow_html=True)
 
 with st.sidebar:
     st.markdown(

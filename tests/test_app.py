@@ -6,8 +6,14 @@ from streamlit.testing.v1 import AppTest
 APP = Path(__file__).resolve().parents[1] / "app.py"
 
 
-def test_workbench_starts_and_switches_compartments_and_route():
+def workbench():
     app = AppTest.from_file(str(APP), default_timeout=30).run()
+    next(x for x in app.radio if x.label == "Workspace").set_value("PK/PD simulator").run()
+    return app
+
+
+def test_workbench_starts_and_switches_compartments_and_route():
+    app = workbench()
     assert not app.exception
     assert len(app.metric) == 4
     app.select_slider[0].set_value(3).run()
@@ -18,7 +24,7 @@ def test_workbench_starts_and_switches_compartments_and_route():
 
 
 def test_indirect_response_and_variability_controls_work():
-    app = AppTest.from_file(str(APP), default_timeout=30).run()
+    app = workbench()
     next(x for x in app.selectbox if x.label == "Response model").select(
         "indirect_inhibition"
     ).run()
@@ -39,19 +45,19 @@ def test_indirect_response_and_variability_controls_work():
 
 
 def test_invalid_horizon_shows_error_instead_of_silently_dropping_doses():
-    app = AppTest.from_file(str(APP), default_timeout=30).run()
+    app = workbench()
     next(x for x in app.number_input if x.label == "Simulation horizon (h)").set_value(10).run()
     assert app.error
     assert not app.exception
 
 
 def test_import_hides_builder_and_linear_pd_shows_relevant_parameters():
-    app = AppTest.from_file(str(APP), default_timeout=30).run()
+    app = workbench()
     next(x for x in app.selectbox if x.label == "Response model").select("linear").run()
     labels = {x.label for x in app.number_input}
     assert "Linear slope (response per mg/L)" in labels
     assert "EC50 / IC50 (mg/L)" not in labels
-    app.radio[0].set_value("Import JSON").run()
+    next(x for x in app.radio if x.label == "Scenario source").set_value("Import JSON").run()
     assert not app.number_input
     assert not app.exception
 
@@ -79,7 +85,7 @@ def test_experiment_solver_failure_is_reported_without_traceback(monkeypatch, pa
             raise RuntimeError("Injected integration failure")
 
         monkeypatch.setattr(pkpd_lab.experiments, "population", fail_population)
-    app = AppTest.from_file(str(APP), default_timeout=30).run()
+    app = workbench()
     if path == "population":
         next(x for x in app.button if x.label == "Run virtual population").click().run()
     assert app.error

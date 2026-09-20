@@ -21,3 +21,5 @@ jobs:
       - run: uv run ruff format --check .
       - run: uv run pytest
       - run: uv run pkpd examples/repeated_oral.json --output outputs/smoke.csv
+      - run: uv run pkpd-lab generate examples/lab_clearance.json --output outputs/lab-model.json
+      - run: uv run pkpd-lab run examples/lab_clearance.json --output outputs/lab-run.zip

@@ -4,6 +4,10 @@ This guide describes v0.1 behavior. Bundled scenarios are synthetic; named-drug
 calibration, observed-data fitting, and patient-specific recommendations are not
 implemented. For equations and assumptions, see [MODELS.md](MODELS.md).
 
+In v0.2, select **PK/PD simulator** in the sidebar to use this original workflow.
+The default **Lab builder** has its own [guide](LAB_BUILDER.md), data format,
+local saves, and generate/run flow; scenario JSON and lab JSON are not interchangeable.
+
 ## Start the workbench
 
 From a clone of this repository:

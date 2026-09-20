@@ -1,5 +1,18 @@
 # Research roadmap
 
+## Delivered: v0.2 lab builder
+
+The lab hierarchy, local JSON persistence, independent subjects, editable
+compartment networks, power-law kinetic orders 0–3, explicit derivative orders
+0–3, dimensional checking, model generation, and run exports are implemented.
+See [LAB_BUILDER.md](LAB_BUILDER.md) for the contract and limitations.
+This extends model construction; it does not establish empirical drug validity.
+
+Next lab-specific extensions are finite infusion/lag events, validated feedback
+from custom states into physical fluxes, per-state solver tolerances, and broader
+independent checks for stiff networks. General implicit DAE systems and cycles
+among zero-order sources require a separately tested solver strategy.
+
 The first release establishes a general simulator. The next steps should be
 driven by a specific scientific question and the data that can resolve it.
 

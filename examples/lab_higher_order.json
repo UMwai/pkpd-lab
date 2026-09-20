@@ -1,0 +1,61 @@
+{
+  "kind": "lab",
+  "lab_schema_version": 1,
+  "id": "337e270f11df40c2b954723c1baf390d",
+  "name": "Higher-order equations",
+  "description": "Synthetic mathematics demonstration, not a drug model",
+  "subjects": [
+    {
+      "id": "f202a08b8a7c402086f5a0b10cdcf86a",
+      "name": "Mathematics body",
+      "notes": "Synthetic mathematics example; not a drug-response model",
+      "compartments": [],
+      "processes": [],
+      "parameters": [
+        {
+          "symbol": "omega2",
+          "value": 1.0,
+          "unit": "1/h^2"
+        },
+        {
+          "symbol": "jerk",
+          "value": 0.1,
+          "unit": "response/h^3"
+        }
+      ],
+      "equations": [
+        {
+          "symbol": "oscillator",
+          "derivative_order": 2,
+          "rhs": "-omega2 * oscillator",
+          "unit": "response",
+          "initial": [
+            1.0,
+            0.0
+          ]
+        },
+        {
+          "symbol": "third",
+          "derivative_order": 3,
+          "rhs": "jerk",
+          "unit": "response",
+          "initial": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "symbol": "combined",
+          "derivative_order": 0,
+          "rhs": "oscillator + third",
+          "unit": "response",
+          "initial": []
+        }
+      ],
+      "doses": []
+    }
+  ],
+  "end_h": 12.0,
+  "samples": 481
+}

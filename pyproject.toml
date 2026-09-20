@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pkpd-lab"
-version = "0.1.0"
+version = "0.2.0"
 description = "An inspectable workbench for compartmental PK/PD research"
 requires-python = ">=3.11"
 dependencies = [
@@ -18,6 +18,7 @@ dependencies = [
 
 [project.scripts]
 pkpd = "pkpd_lab.cli:main"
+pkpd-lab = "pkpd_lab.lab_cli:main"
 
 [dependency-groups]
 dev = ["pytest>=8,<10", "ruff>=0.9,<1"]
