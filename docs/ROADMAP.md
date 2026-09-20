@@ -3,6 +3,25 @@
 The first release establishes a general simulator. The next steps should be
 driven by a specific scientific question and the data that can resolve it.
 
+## Immediate priorities after the Fable 5.1 review
+
+Before expanding the biological scope, close the baseline's documented gaps:
+
+1. Add independent trajectory references for effect-site-driven indirect response,
+   non-unit Hill slopes, exposed linear PD, and combined nonlinear/distribution
+   models. Benchmark long dose histories and scale-dependent solver behavior.
+2. Extend experiment receipts with Python/platform, pandas, Git revision, lockfile
+   and output hashes; archive population draws and their dependency versions.
+3. Introduce a version 2 schema with explicit `_per_h` rate-constant names and an
+   explicit migration from version 1. Do not silently reinterpret existing fields.
+4. Improve between-grid peak estimation while retaining sampled Cmax/Tmax, then
+   assess component-specific tolerances and event-time representations with tests.
+5. Admit one published model using the evidence record below.
+
+The UI refresh improves control organization, model topology, and bolus plotting;
+it does not close the scientific verification gaps. See the
+[review disposition](reviews/2026-09-20-fable-5.1.md).
+
 ## 1. Admit published drug models
 
 Add a versioned model registry with source DOI/URL, parameter table, units,

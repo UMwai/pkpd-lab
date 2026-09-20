@@ -10,6 +10,9 @@ structure and research practice, not a claim of regulatory qualification.
    [three-compartment PKMODEL support](https://mrgsolve.org/blog/posts/2026-new-2-0-1.html).
    Reference for clearance/volume parameterization, compartment counting, and
    explicit administration histories.
+   The three-compartment reference was rechecked on 2026-09-20: sections 5–6
+   describe three-compartment support in mrgsolve 2.0.1. This is a documentation
+   reference, not a cross-engine comparison of this project's numerical outputs.
 2. **Torsten — Effect Compartment Population Model.**
    [Worked example](https://metrumresearchgroup.github.io/Torsten/example/effcpt/).
    Reference for delayed effect-site exposure, Emax response, and complete event

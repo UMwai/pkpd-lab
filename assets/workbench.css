@@ -1,0 +1,53 @@
+.stApp { font-family: "Trebuchet MS", sans-serif; }
+.block-container { max-width: 1600px; padding: 2.2rem 2.6rem 2rem; }
+h1, h2, h3 { font-family: "Trebuchet MS", sans-serif !important; }
+h1 { font-size: 2.15rem !important; letter-spacing: -.065rem; font-weight: 700 !important; }
+h2 { font-size: 1.4rem !important; letter-spacing: -.03rem; }
+h3 { font-size: 1.15rem !important; letter-spacing: -.02rem; }
+[data-testid="stSidebar"] { border-right: 1px solid #e0e7ee; }
+[data-testid="stSidebar"] h2 { font-size: 1.15rem !important; }
+[data-testid="stSidebarUserContent"] { padding-top: 1.2rem; }
+[data-testid="stSidebar"] [data-testid="stVerticalBlock"] { gap: .65rem; }
+[data-testid="stSidebar"] label p { font-size: .79rem; font-weight: 600; }
+[data-testid="stSidebar"] [data-testid="stExpander"] { background: #fff; }
+[data-testid="stMetric"] { background: #fff; border: 1px solid #e0e7ee; border-radius: 10px;
+  padding: .9rem 1.1rem; min-height: 100px; }
+[data-testid="stMetricLabel"] p { color: #61738b; font-size: .75rem; font-weight: 600; }
+[data-testid="stMetricValue"] { font-family: "Trebuchet MS", sans-serif;
+  font-size: 1.8rem; font-variant-numeric: tabular-nums; letter-spacing: -.04em; }
+[data-testid="stVerticalBlockBorderWrapper"] > div { border-color: #e0e7ee; }
+[data-testid="stTabs"] [role="tablist"] { gap: 1.8rem; border-bottom: 1px solid #e0e7ee; }
+[data-testid="stTabs"] [role="tab"] { padding: .45rem .05rem .8rem; height: 48px; }
+[data-testid="stTabs"] [role="tab"] p { font-weight: 600; font-size: .85rem; }
+.lab-wordmark { display: flex; align-items: center; gap: .65rem; font-size: 1.12rem;
+  font-weight: 700; letter-spacing: -.025em; color: #182c45; margin-bottom: .2rem; }
+.lab-mark { background: #087f8c; color: #fff; border-radius: 9px; width: 34px; height: 34px;
+  display: inline-flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+.lab-owner { font: .68rem "Trebuchet MS", sans-serif; letter-spacing: .13em;
+  color: #6a7d91; margin: .4rem 0 1.3rem 2.8rem; }
+.page-kicker { color: #6a7d91; font-size: .68rem; letter-spacing: .16em;
+  font-weight: 700; margin-bottom: .2rem; }
+.page-subtitle { color: #61738b; font-size: .95rem; margin: -.15rem 0 .3rem; }
+.status-tag { display: inline-block; font-size: .7rem; font-weight: 600; color: #087782;
+  background: #e6f5f4; border: 1px solid #c7e5e2; border-radius: 5px; padding: .3rem .55rem; }
+.model-map { display: flex; align-items: center; gap: .75rem; padding: 1rem 1.1rem;
+  border: 1px solid #e0e7ee; background: #fff; border-radius: 10px; min-height: 95px;
+  overflow-x: auto; margin: .15rem 0 .3rem; }
+.model-node { display: flex; flex-direction: column; gap: .22rem; min-width: 105px;
+  padding: .55rem .85rem; background: #f4f7fa; border: 1px solid #e0e7ee; border-radius: 7px; }
+.model-node small { color: #64778d; font-size: .61rem; font-weight: 700; letter-spacing: .06em; }
+.model-node b { font-size: .82rem; color: #253c57; font-weight: 600; white-space: nowrap; }
+.model-node span { font-size: .7rem; color: #087782; white-space: nowrap; }
+.central-node { background: #edf8f7; border-color: #b8ddda; }
+.model-arrow { color: #7c92a8; font-size: 1.3rem; }
+.peripheral-stack { display: flex; flex-direction: column; gap: .35rem; }
+.peripheral-link { display: flex; align-items: center; gap: .65rem; }
+.exchange { font-size: .72rem; color: #63798f; white-space: nowrap; }
+.section-note { color: #708196; font-size: .75rem; }
+@media (max-width: 850px) {
+  .block-container { padding: 1.7rem 1rem; }
+  h1 { font-size: 1.8rem !important; }
+  [data-testid="stMetric"] { min-height: 80px; padding: .65rem; }
+  [data-testid="stMetricValue"] { font-size: 1.5rem; }
+  .model-map { gap: .4rem; padding: .65rem; }
+}
